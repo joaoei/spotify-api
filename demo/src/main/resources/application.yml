@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-type: application/json, application/xml, text/html, text/xml, text/plain
+  shutdown: graceful
