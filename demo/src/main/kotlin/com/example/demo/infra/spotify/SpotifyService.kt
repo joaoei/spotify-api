@@ -108,14 +108,14 @@ class SpotifyService (
 	  x pegar artistas relacionados (filtrar mais populares) - vem 20
 	  x pegar musicas populares desses artistas
 	  x pegar data de lançamento da musica
-	  . montar playlist com as 20 musicas mais populares
+	  x add  montar playlist com as 20 musicas mais populares
 
 	  Playlist - service de streaming - data de criacao - usuario -
 
 	  JUnit
 	 */
     override fun createPlaylistByArtist(id: String): List<SpotifyTrack> {
-        val idArtist = "3WrFJ7ztbogyGnTHbHJFl2"
+        val idArtist = "5Q9RKJrjHdfpWVxzv45XTJ" // nx zero
         val auth = "Bearer ${requestUserInfoToken()}"
         val tracks = spotifyClient.getArtistsTopTracks(idArtist, auth).tracks
         val relatedArtists = spotifyClient.getRelatedArtistsByArtistId(idArtist, auth).artists
@@ -125,7 +125,18 @@ class SpotifyService (
             tracks.addAll(topTracks)
         }
 
-        return tracks.sortedBy { it.popularity }
+        val userId = "12150997505"
+        val playlist = spotifyClient.createNewPlaylistByUser(userId, CreatePlaylistSpotifyModel("PL DE TESTE", "FIZ ESSA PL PELA API", true), auth)
+        var listOfSongs = tracks.sortedBy { it.popularity }
+        listOfSongs = listOfSongs.subList(listOfSongs.lastIndex - 99, listOfSongs.lastIndex)
+
+        val listUris = mutableListOf<String>()
+        for (song : SpotifyTrack in listOfSongs) {
+            listUris.add(song.uri)
+        }
+        val requestBody = AddTracksSpotifyModel(0, listUris)
+        spotifyClient.addTracksToPlaylist(playlist.id, requestBody, auth)
+        return listOfSongs
     }
 
     /* private fun requestBasicToken() : String {

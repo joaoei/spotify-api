@@ -6,7 +6,8 @@ class SpotifyTrack (
     val popularity : Int,
     val is_playable : Boolean,
     val uri : String,
-    val album : SpotifyAlbum
+    val album : SpotifyAlbum,
+    val artists: MutableList<SpotifyArtist>
 )
 
 class SpotifyAlbum (

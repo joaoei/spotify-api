@@ -5,7 +5,7 @@ import com.example.demo.model.Artist
 class SpotifyArtist (
     val id: String,
     val name: String,
-    val genres: List<String>,
+    val genres: List<String>?,
     val popularity: Int
 )  {
     fun getArtist() : Artist {

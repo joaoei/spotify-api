@@ -16,6 +16,12 @@ class ArtistService : ArtistServiceInterface {
         return null
     }
 
+    // Teste 1: Lista nula
+    // Teste 2: Lista com n itens
+    // Teste 3: Popularidade negativa
+    // Teste 4: Popularidade zero
+    // Teste 5: Popularidade maior que 0
+    // Teste 6: Garantir ordenação
     override fun getUserArtistsByPopularity(spotifyArtists: List<SpotifyArtist>, popularity: Int) : List<Artist>? {
         var artists = getArtistsBySpotifyArtists(spotifyArtists)
         artists = artists?.filter { it.popularidade > popularity }

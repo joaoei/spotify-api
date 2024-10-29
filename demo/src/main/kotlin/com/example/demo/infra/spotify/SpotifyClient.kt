@@ -5,6 +5,8 @@ import com.example.demo.infra.spotify.model.*
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 
 
@@ -31,4 +33,18 @@ interface SpotifyClient {
         @PathVariable idArtist : String,
         @RequestHeader(name = "Authorization") authorization: String
     ): SpotifyArtists
+
+    @PostMapping("users/{userId}/playlists")
+    fun createNewPlaylistByUser(
+        @PathVariable userId : String,
+        @RequestBody body : CreatePlaylistSpotifyModel,
+        @RequestHeader(name = "Authorization") authorization: String
+    ): SpotifyPlaylist
+
+    @PostMapping("playlists/{playlistId}/tracks")
+    fun addTracksToPlaylist(
+        @PathVariable playlistId : String,
+        @RequestBody body : AddTracksSpotifyModel,
+        @RequestHeader(name = "Authorization") authorization: String
+    ): String
 }

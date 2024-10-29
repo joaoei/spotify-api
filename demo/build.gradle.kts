@@ -25,7 +25,9 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.json:json:20230227")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0")
+	testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation(kotlin("test"))
 }
 
 tasks.withType<KotlinCompile> {
@@ -33,6 +35,10 @@ tasks.withType<KotlinCompile> {
 		freeCompilerArgs += "-Xjsr305=strict"
 		jvmTarget = "17"
 	}
+}
+
+tasks.test {
+	useJUnitPlatform()
 }
 
 tasks.withType<Test> {
