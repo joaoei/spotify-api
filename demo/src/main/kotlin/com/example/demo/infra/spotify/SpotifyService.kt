@@ -114,21 +114,23 @@ class SpotifyService (
 
 	  JUnit
 	 */
-    override fun createPlaylistByArtist(id: String): List<SpotifyTrack> {
-        val idArtist = "5Q9RKJrjHdfpWVxzv45XTJ" // nx zero
+    override fun createPlaylistByArtist(idArtist: String): List<SpotifyTrack> {
         val auth = "Bearer ${requestUserInfoToken()}"
         val tracks = spotifyClient.getArtistsTopTracks(idArtist, auth).tracks
-        val relatedArtists = spotifyClient.getRelatedArtistsByArtistId(idArtist, auth).artists
+        /*
+        DEPRECADO val relatedArtists = spotifyClient.getRelatedArtistsByArtistId(idArtist, auth).artists
+
 
         for (artist : SpotifyArtist in relatedArtists) {
             val topTracks = spotifyClient.getArtistsTopTracks(artist.id, auth).tracks
             tracks.addAll(topTracks)
         }
+        */
 
         val userId = "12150997505"
         val playlist = spotifyClient.createNewPlaylistByUser(userId, CreatePlaylistSpotifyModel("PL DE TESTE", "FIZ ESSA PL PELA API", true), auth)
         var listOfSongs = tracks.sortedBy { it.popularity }
-        listOfSongs = listOfSongs.subList(listOfSongs.lastIndex - 99, listOfSongs.lastIndex)
+        //listOfSongs = listOfSongs.subList(listOfSongs.lastIndex - 99, listOfSongs.lastIndex)
 
         val listUris = mutableListOf<String>()
         for (song : SpotifyTrack in listOfSongs) {

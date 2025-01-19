@@ -1,12 +1,8 @@
 package com.example.demo
 
-import com.example.demo.infra.spotify.SpotifyClient
-import com.example.demo.infra.spotify.model.SpotifyArtists
 import com.example.demo.infra.spotify.model.SpotifyTrack
-import com.example.demo.infra.spotify.model.SpotifyTracks
 import com.example.demo.infra.spotify.model.SpotifyUser
 import com.example.demo.model.Artist
-import com.example.demo.service.ArtistService
 import com.example.demo.service.AudioStreamingServiceInterface
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
@@ -42,8 +38,8 @@ class MessageController (
 		return streamingService.getUserArtistsByPopularity(popularity)
 	}
 
-	@GetMapping("/create-playlist-by-artist")
-	fun createPlaylistByArtist(@RequestParam id: String) : List<SpotifyTrack> {
+	@RequestMapping(value = ["/create-playlist-by-artist/{id}"])
+	fun createPlaylistByArtist(@PathVariable(value = "id") id: String) : List<SpotifyTrack> {
 		return streamingService.createPlaylistByArtist(id)
 	}
 }
